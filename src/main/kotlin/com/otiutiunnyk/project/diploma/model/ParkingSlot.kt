@@ -1,18 +1,24 @@
 package com.otiutiunnyk.project.diploma.model
 
 import jakarta.persistence.*
-import java.util.*
 
 @Entity
 @Table(name = "parking_slots")
-data class ParkingSlot(
+class ParkingSlot() {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    var id: String,
-    @Column(name = "geolocation")
-    var geolocation: String,
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @get:Column(name = "id")
+    var id: Long? = null
+
+    @get:Column(name = "geolocation", nullable = false)
+    var geolocation: String? = null
+
     @ManyToOne
-    @JoinColumn(name = "parking_area_id")
-    var parkingAreaId: ParkingArea
-)
+    @get:JoinColumn(name = "parking_area_id", nullable = false)
+    var parkingArea: ParkingArea? = null
+
+    constructor(geolocation: String, parkingArea: ParkingArea) : this() {
+        this.geolocation = geolocation
+        this.parkingArea = parkingArea
+    }
+}

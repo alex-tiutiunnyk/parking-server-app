@@ -1,8 +1,8 @@
 package com.otiutiunnyk.project.diploma.repository
 
-import com.otiutiunnyk.project.diploma.model.User
+import com.otiutiunnyk.project.diploma.model.ParkingInfoFromUser
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface UserRepository : JpaRepository<User, Long>
+interface ParkingInfoFromUserRepository : JpaRepository<ParkingInfoFromUser, Long>

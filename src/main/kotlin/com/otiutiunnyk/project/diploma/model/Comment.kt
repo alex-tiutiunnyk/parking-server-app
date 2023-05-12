@@ -1,21 +1,29 @@
 package com.otiutiunnyk.project.diploma.model
 
 import jakarta.persistence.*
-import java.util.*
 
 @Entity
 @Table(name = "comments")
-data class Comment(
+class Comment() {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    var id: String,
-    @Column(name = "content")
-    var content: String,
-    @Column(name = "parking_area_id")
-    //dependency to ParkingArea
-    val parkingAreaId: UUID,
-    @Column(name = "user_id")
-    //dependency to Users
-    val userId: UUID
-)
+    var id: Long? = null
+
+    @get:Column(name = "content", nullable = false)
+    var content: String? = null
+
+    @ManyToOne
+    @get:JoinColumn(name = "parking_area_id", referencedColumnName = "id", nullable = false)
+    var parkingArea: ParkingArea? = null
+
+    @ManyToOne
+    @get:JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    var user: User? = null
+
+    constructor(content: String, parkingArea: ParkingArea, user: User) : this() {
+        this.content = content
+        this.parkingArea = parkingArea
+        this.user = user
+    }
+}

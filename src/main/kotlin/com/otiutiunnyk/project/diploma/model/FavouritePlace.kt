@@ -1,21 +1,25 @@
 package com.otiutiunnyk.project.diploma.model
 
 import jakarta.persistence.*
-import java.util.*
 
 @Entity
 @Table(name = "favourite_places")
-data class FavouritePlace (
+class FavouritePlace() {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    var id: String,
-    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @get:Column(name = "id")
+    var id: Long? = null
+
     @ManyToOne
-    @JoinColumn(name = "parking_area_id", referencedColumnName = "id")
-    var parkingArea: ParkingArea,
-    @Id
+    @get:JoinColumn(name = "parking_area_id", referencedColumnName = "id", nullable = false)
+    var parkingArea: ParkingArea? = null
+
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    var user: User
-)
+    @get:JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    var user: User? = null
+
+    constructor(parkingArea: ParkingArea, user: User) : this() {
+        this.parkingArea = parkingArea
+        this.user = user //TODO: I think that the foreign key are not necessary in the constructor?
+    }
+}
